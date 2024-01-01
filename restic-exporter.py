@@ -94,7 +94,7 @@ class ResticCollector(object):
         for client in self.metrics["clients"]:
             common_label_values = [
                 client["short_id"],
-                client["paths"],
+                client["paths_head"],
                 client["hostname"],
                 client["username"],
                 client["version"],
@@ -184,7 +184,7 @@ class ResticCollector(object):
             clients.append(
                 {
                     "short_id": snap["short_id"],
-                    "paths": snap["paths"],
+                    "paths_head": snap["paths"][0],
                     "hostname": snap["hostname"],
                     "username": snap["username"],
                     "version": snap["program_version"] if "program_version" in snap else "",
