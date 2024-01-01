@@ -41,6 +41,8 @@ class ResticCollector(object):
             "client_hostname",
             "client_username",
             "client_version",
+            "snapshot_short_id",
+            "snapshot_paths_head",
             "snapshot_hash",
             "snapshot_tag",
             "snapshot_paths",
@@ -93,11 +95,11 @@ class ResticCollector(object):
 
         for client in self.metrics["clients"]:
             common_label_values = [
-                client["short_id"],
-                client["paths_head"],
                 client["hostname"],
                 client["username"],
                 client["version"],
+                client["short_id"],
+                client["paths_head"],
                 client["snapshot_hash"],
                 client["snapshot_tag"],
                 client["snapshot_paths"],
