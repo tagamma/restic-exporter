@@ -42,7 +42,6 @@ class ResticCollector(object):
             "client_username",
             "client_version",
             "snapshot_short_id",
-            "snapshot_paths_head",
             "snapshot_hash",
             "snapshot_tag",
             "snapshot_paths",
@@ -89,9 +88,9 @@ class ResticCollector(object):
             labels=[],
         )
 
-        check_success.add_metric([], self.metrics["check_success"])
-        locks_total.add_metric([], self.metrics["locks_total"])
-        snapshots_total.add_metric([], self.metrics["snapshots_total"])
+        check_success.add_metric(["snapshot_paths"], self.metrics["check_success"])
+        locks_total.add_metric(["snapshot_paths"], self.metrics["locks_total"])
+        snapshots_total.add_metric(["snapshot_paths"], self.metrics["snapshots_total"])
 
         for client in self.metrics["clients"]:
             common_label_values = [
@@ -99,7 +98,6 @@ class ResticCollector(object):
                 client["username"],
                 client["version"],
                 client["short_id"],
-                client["paths_head"],
                 client["snapshot_hash"],
                 client["snapshot_tag"],
                 client["snapshot_paths"],
@@ -186,7 +184,6 @@ class ResticCollector(object):
             clients.append(
                 {
                     "short_id": snap["short_id"],
-                    "paths_head": snap["paths"][0],
                     "hostname": snap["hostname"],
                     "username": snap["username"],
                     "version": snap["program_version"] if "program_version" in snap else "",
